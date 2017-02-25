@@ -1,0 +1,7 @@
+*.log
+*.png
+*.bmp
+*.jpg
+
+Temp
+RandSelectMultiPie/.idea

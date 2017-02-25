@@ -1,0 +1,2 @@
+python MultiPieScript.py
+exit
