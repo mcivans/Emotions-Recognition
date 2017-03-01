@@ -13,9 +13,9 @@ int main(int, char**)
 	// Путь к файлу с моделью передается в конструкор
 	Genderize* genderize = new Genderize("D:\\_Repositories\\GenderclassificationCAL\\15_1\\exp_smile15.csv");
 	// Путь к папке с изображениями
-	string sPath = "D:\\_Repositories\\GenderclassificationCAL\\15_1\\TDB";
+	string sPath = "C:\\_Repositories\\Emotions_Recognition\\Selections\\15\\LDB";
 	// Путь к файлу с Габорами
-	string sGaborsFile = "D:\\_Repositories\\GenderclassificationCAL\\15_1\\GABORS_smile15.csv";
+	string sGaborsFile = "C:\\_Repositories\\Emotions_Recognition\\Selections\\15\\GABORS_smile15.csv";
 	// Осуществлять ли разбиение файлов из тестовой выборки по детектируемым для них классам
 	bool MAKE_SEPARATION = true;
 	//bool MAKE_SEPARATION = false;

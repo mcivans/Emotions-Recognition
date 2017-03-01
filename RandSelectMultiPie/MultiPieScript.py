@@ -25,8 +25,7 @@ def getFileSelectionName(emotiontype, emotionscatter, curcount):
         et = nsemotions[idx]
     else:
         et = getFullEmotionName(emotiontype)
-    emotionscatter[et] += 1
-    filename = str(et) + '-' + str(emotionscatter[et]) + '.png'
+    filename = str(et) + '-' + str(emotionscatter[et]+1) + '.png'
     return filename, et
 
 # get random folder of session on the type of emotion
@@ -117,7 +116,8 @@ def getSelectionPict(pathtodb, emotiontype, angle, emotionscatter, curcount):
     pathtopicts = pathtorecording + cameradir
     pictfilename = getPictName(pathtopicts)
     fullpathtopict = pathtopicts + '/' + pictfilename
-    return fullpathtopict, filenamepict
+    filenamepict1 = str(pictfilename.replace('.png', '')) + filenamepict
+    return fullpathtopict, filenamepict, filenamepict1, et
 
 # create the folder with photos of selection. If folder is not empty, it rewrites
 def createSelectionFolder(foldername):
@@ -128,10 +128,11 @@ def createSelectionFolder(foldername):
     return pathtodir
 
 # copy pictures from Multi-Pie database to the folder of selection
-def copySelection(selectionpath, pictures, names):
+def copySelection(selectionpath, pictures, names, names1):
     idx = 0
     for pict in pictures :
         shutil.copy(pict, selectionpath+'/'+names[idx])
+        shutil.copy(pict, selectionpath + '_Shuffle\\' + names1[idx])
         idx += 1
     return
 
@@ -187,21 +188,23 @@ if ('*' in str(foldername) or '|' in str(foldername) or '\\' in str(foldername) 
 curcount = 0 # current count of photos in selection. At the beginning no photos are selected
 listphotos = [] # list of path of chosen photos in selection
 listnames = [] # list of new names for photos in selection
-#notsmilescatter = [0, 0, 0, 0, 0] # list-scater of different types of not smiling emotions
-#                  A, L, D, Y, C
+listnames1 = [] # list of new names for photos in selection
 emotionscatter = {'AMAZED': 0, 'LOOKING': 0, 'DISGUISTING': 0, 'YAWNING': 0, 'CALM': 0, 'SMILE': 0}
 # dictionary-scater of different types of not smiling emotions
 print('\nMaking selection...')
 while (curcount < countphotos):
-    pict, filenamepict = getSelectionPict(pathtodb, emotiontype, angle, emotionscatter, curcount)
+    pict, filenamepict, filenamepict1, et = getSelectionPict(pathtodb, emotiontype, angle, emotionscatter, curcount)
     if pict not in set(listphotos): # new photo is selected for selection
         listphotos.append(pict)
         curcount += 1
+        emotionscatter[et] += 1
         listnames.append(filenamepict)
+        listnames1.append(filenamepict1)
 print('Files for selection are choosen!')
 selectionpath = createSelectionFolder(foldername)
+shufflepath = createSelectionFolder(str(foldername+'_Shuffle'))
 print('Copying files...')
-copySelection(selectionpath, listphotos, listnames)
+copySelection(selectionpath, listphotos, listnames, listnames1)
 print('All files of selection are copied!')
 makeLog(foldername, listphotos, listnames, emotionscatter)
 print('Log-file is created!')

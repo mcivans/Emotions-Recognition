@@ -2,6 +2,21 @@
 *.png
 *.bmp
 *.jpg
+*.csv
+*.sdf
+*.suo
+*.pdb
+*.orig
+*.pro.user
+*.user
 
 Temp
-RandSelectMultiPie/.idea
+*/.idea
+15
+15Sh
+30
+30Sh
+45
+45Sh
+ConfusionMatrixBuilder/fold
+*/Selection
